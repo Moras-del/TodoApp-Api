@@ -23,17 +23,7 @@ public class Label {
     @NotNull
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "labels_cards",
-            joinColumns = @JoinColumn(name = "label_id"),
-            inverseJoinColumns = @JoinColumn(name = "card_id")
-    )
-    @Cascade({org.hibernate.annotations.CascadeType.PERSIST,
-            org.hibernate.annotations.CascadeType.MERGE,
-            org.hibernate.annotations.CascadeType.REFRESH,
-            org.hibernate.annotations.CascadeType.DETACH
-    })
+    @ManyToMany(mappedBy = "labels")
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
     @JsonBackReference
@@ -49,11 +39,9 @@ public class Label {
 
     public void addCard(Card card) {
         cards.add(card);
-        card.addLabel(this);
     }
 
     public void removeCard(Card card){
         cards.remove(card);
-        card.removeLabel(this);
     }
 }

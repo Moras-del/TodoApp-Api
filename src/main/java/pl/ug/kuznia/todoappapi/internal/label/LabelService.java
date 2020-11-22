@@ -1,6 +1,7 @@
 package pl.ug.kuznia.todoappapi.internal.label;
 
 import lombok.AllArgsConstructor;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +23,9 @@ public class LabelService {
 
     public List<Label> findAllLabels() {
         return labelRepository.findAll();
+    }
+
+    public Label get(LabelDto labelDto) {
+        return labelRepository.findByName(labelDto.getName()).orElseThrow(()->new ObjectNotFoundException(labelDto.getName(), "Label"));
     }
 }
