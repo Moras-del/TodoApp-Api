@@ -16,7 +16,7 @@ public class CardController {
     }
 
     @GetMapping
-    public List<Card> findAllCards() {
+    public Iterable<Card> findAllCards() {
         return cardService.findAllCards();
     }
 

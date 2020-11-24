@@ -25,7 +25,6 @@ public class Label {
 
     @ManyToMany(mappedBy = "labels")
     @Setter(AccessLevel.NONE)
-    @Getter(AccessLevel.NONE)
     @JsonBackReference
     private List<Card> cards = new ArrayList<>();
 

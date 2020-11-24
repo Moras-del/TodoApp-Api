@@ -22,11 +22,7 @@ public class TodoAppApiApplication {
     @Bean
     public CommandLineRunner setup(ApplicationContext ctx){
         return args->{
-            if (labelService.isEmpty()){
-                labelService.addLabel(new LabelDto("work"));
-                labelService.addLabel(new LabelDto("house"));
-                labelService.addLabel(new LabelDto("gym"));
-            }
+            labelService.setupLabels("work", "house", "gym");
         };
     }
 

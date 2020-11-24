@@ -13,7 +13,7 @@ public class LabelController {
     private final LabelService labelService;
 
     @GetMapping
-    public List<Label> findAllLabels(){
+    public Iterable<Label> findAllLabels(){
         return labelService.findAllLabels();
     }
 

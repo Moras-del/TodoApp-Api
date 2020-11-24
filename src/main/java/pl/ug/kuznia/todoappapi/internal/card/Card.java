@@ -28,19 +28,13 @@ public class Card {
     @NotNull
     private String description;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "labels_cards",
             joinColumns = @JoinColumn(name = "label_id"),
             inverseJoinColumns = @JoinColumn(name = "card_id")
     )
-    @Cascade({org.hibernate.annotations.CascadeType.PERSIST,
-            org.hibernate.annotations.CascadeType.MERGE,
-            org.hibernate.annotations.CascadeType.REFRESH,
-            org.hibernate.annotations.CascadeType.DETACH
-    })
     @Setter(AccessLevel.NONE)
-    @Getter(AccessLevel.NONE)
     @JsonManagedReference
     @Builder.Default
     List<Label> labels = new ArrayList<>();

@@ -3,6 +3,7 @@ package pl.ug.kuznia.todoappapi.internal.label;
 import lombok.AllArgsConstructor;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
+import pl.ug.kuznia.todoappapi.internal.exceptions.ResourceNotFoundException;
 
 import java.util.List;
 
@@ -21,11 +22,19 @@ public class LabelService {
         return labelRepository.save(label);
     }
 
-    public List<Label> findAllLabels() {
+    public void setupLabels(String... names){
+        if (isEmpty()) {
+            for (String name : names)
+                labelRepository.save(new Label(name));
+        }
+    }
+
+    public Iterable<Label> findAllLabels() {
         return labelRepository.findAll();
     }
 
     public Label get(LabelDto labelDto) {
-        return labelRepository.findByName(labelDto.getName()).orElseThrow(()->new ObjectNotFoundException(labelDto.getName(), "Label"));
+        return labelRepository.findByName(labelDto.getName())
+                .orElseThrow(()->new ResourceNotFoundException("Label"));
     }
 }
